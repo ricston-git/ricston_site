@@ -1,0 +1,183 @@
+Back to [[AngularJs Notes]]
+
+First, we need to actually setup the essentials to an Angular project. There are certain things to note before we begin, which generally consist of an ng-app declaration to define your app, a Controller to talk to your view, and some DOM binding and inclusion of Angular. Here are the bare essentials:
+
+Some HTML with **ng-app**, **ng-controller**:
+{{{
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body>
+<div ng-app="myApp">
+    <div ng-controller="MainCtrl">
+        <!-- controller logic -->
+    </div>
+</div>
+</body>
+}}}
+
+An Angular Module and Controller, which can be in the page ..or in case a **script.js** page
+
+{{{
+// create the module and name it scotchApp
+var scotchApp = angular.module('scotchApp', []);
+
+// create the controller and inject Angular's $scope
+scotchApp.controller('mainController', function($scope) {
+   // create a message to display in our view
+   $scope.message = 'Everyone come and see how good I look!';
+});
+}}}
+
+We need to create an Angular module which all our logic will bolt onto. There are many ways to declare modules, and you can chain all of your logic like this:
+
+{{{
+angular.module('myApp', [])
+.controller('MainCtrl', ['$scope', function ($scope) {...}])
+.controller('NavCtrl', ['$scope', function ($scope) {...}])
+.controller('UserCtrl', ['$scope', function ($scope) {...}]);
+}}}
+
+Setting up a global Module has proved to be the best for Angular projects I've worked on. The lack of semi-colons and accidental closing of the 'chain' proved counter-productive and frequented unnecessary compiling errors. Go for this:
+
+{{{
+var myApp = angular.module('myApp', []);
+myApp.controller('MainCtrl', ['$scope', function ($scope) {...}]);
+myApp.controller('NavCtrl', ['$scope', function ($scope) {...}]);
+myApp.controller('UserCtrl', ['$scope', function ($scope) {...}]);
+}}}
+
+For each new file created  grabs the myApp namespace and you're automatically bolted into the application.
+
+Some advise creating a new file for each **Controller**, **Directive**, **Factory** etc. 
+Then concatenate them all and push the single script file into the DOM on the fly using something like Grunt.
+
+=== Controllers === 
+
+Now you've grasped the concept of MVC and a basic setup, let's check out Angular's implementation on how you can get going with Controllers.
+
+Taking the example from above, we can take a baby step into pushing some data into the DOM from a controller. Angular uses a templating-style {{ handlebars }} syntax for talking to your HTML. Your HTML should (ideally) contain no physical text or hard coded values to make the most of Angular. Here's an example of pushing a simple String into the DOM:
+
+{{{
+<div ng-app="myApp">
+    <div ng-controller="MainCtrl">
+         {{ text }}
+    </div>
+</div>
+}}}
+
+and script 
+{{{
+var myApp = angular.module('myApp', []);
+
+myApp.controller('MainCtrl', ['$scope', function ($scope) {
+    
+    $scope.text = 'Hello, Angular fanatic.';
+    
+}]);
+}}}
+
+The result data binding "Hello, Angular fanatic." into the Angular html page.
+
+==== Injecting Pages into the Main Layout === 
+
+**ng-view** is an Angular directive that will include the template of the current route (/home, /about, or /contact) in the main layout file. In plain words, it takes the file we want based on the route and injects it into our main layout (index.html).
+
+We will add the ng-view code to our site in the div#main to tell Angular where to place our rendered pages.
+
+{{{
+<!-- index.html -->
+	...
+
+	<!-- MAIN CONTENT AND INJECTED VIEWS -->
+	<div id="main">
+
+		<!-- angular templating -->
+		<!-- this is where content will be injected -->
+		<div ng-view></div>
+
+	</div>
+
+	...
+}}}
+
+==== Configure Routes and Views ====
+
+For a  single page application and we don’t want any page refreshes, we’ll use Angular’s routing capabilities and use a  **$routeProvider** in Angular to handle our routing. 
+
+AngularJS 1.2 The ngRoute module is no longer included in Angular after version 1.1.6. You will need to call the module (<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>). Then when you create your module, you pass in ngRoute. ex var scotchApp = angular.module('scotchApp', ['ngRoute']);
+
+{{{
+// script.js
+
+	// create the module and name it scotchApp
+	var scotchApp = angular.module('scotchApp', []);
+
+	// configure our routes
+	scotchApp.config(function($routeProvider) {
+		$routeProvider
+
+			// route for the home page
+			.when('/', {
+				templateUrl : 'pages/home.html',
+				controller  : 'mainController'
+			})
+
+			// route for the about page
+			.when('/about', {
+				templateUrl : 'pages/about.html',
+				controller  : 'aboutController'
+			})
+
+			// route for the contact page
+			.when('/contact', {
+				templateUrl : 'pages/contact.html',
+				controller  : 'contactController'
+			});
+	});
+
+	// create the controller and inject Angular's $scope
+	scotchApp.controller('mainController', function($scope) {
+		// create a message to display in our view
+		$scope.message = 'Everyone come and see how good I look!';
+	});
+
+	scotchApp.controller('aboutController', function($scope) {
+		$scope.message = 'Look! I am an about page.';
+	});
+
+	scotchApp.controller('contactController', function($scope) {
+		$scope.message = 'Contact us! JK. This is just a demo.';
+	});
+}}}
+
+Now we have defined our routes with $routeProvider. As you can see by the configuration, you can specify the route, the template file to use, and even a controller. This way, each part of our application will use its own view and Angular controller.
+
+Our home page will pull the {{{home.html}}} file. About and contact will pull their respective files. Now if we view our app, and click through the navigation, our content will change just how we wanted.
+
+To finish off this tutorial, we just need to define the pages that will be injected. We will also have them each display a message from its respectiive controller.
+
+{{{
+<!-- home.html -->
+	<div class="jumbotron text-center">
+		<h1>Home Page</h1>
+
+		<p>{{ message }}</p>
+	</div>
+
+<!-- about.html -->
+	<div class="jumbotron text-center">
+		<h1>About Page</h1>
+
+		<p>{{ message }}</p>
+	</div>
+
+<!-- contact.html -->
+	<div class="jumbotron text-center">
+		<h1>Contact Page</h1>
+
+		<p>{{ message }}</p>
+	</div>
+}}}

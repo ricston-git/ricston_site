@@ -1,0 +1,26 @@
+Back to [[AngularJs Notes]]
+
+
+For a simple html page:
+{{{
+<html ng-app>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  <script src="controllers.js"></script>
+</head>
+<body>
+  <div ng-controller='HelloController'>
+    <input ng-model='greeting.text'>
+    <p>{{greeting.text}}, World</p>
+  </div>
+</body>
+</html>
+}}}
+
+Angular will instantiates the HelloController this puts a json object called 'greeting' in scope, that can then substitute where 'greeting' variable is used 
+
+{{{
+function HelloController($scope) {
+  $scope.greeting = { text: 'Hello' };
+}
+}}}

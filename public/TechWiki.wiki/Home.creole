@@ -1,0 +1,31 @@
+Welcome to the TechWiki wiki!
+
+* [[Dart Language Notes]]
+* [[Dart Web Application]]
+
+
+==== Javascript ==== 
+* [[Javascript Notes]]
+* [[Application Framework]] including [[AngularJs Notes]]
+* [[Javascript Libraries]] including grunt
+
+=== Java Web Frameworks ====
+
+ | - [[Zk Notes]] \\ - [[ZK 7 Notes]]   | [[https://pbs.twimg.com/profile_images/1370461773/ZK_new_logo_normal.png|description]] | 
+
+* [[Responsive Layout]] Bootstrap etc. 
+* Web Development [[Tools]]
+
+==== Social Media =====
+* [[Social Media Mgt]]
+
+==== Hosting ====
+* [[linode.com | http://linode.com]] linux hosting 
+* [[tagadab | http://www.tagadab.com/ ]] uk hosting similar price £14  pm
+* heruko - $35 a month
+* cloud66.com 
+* [[nosupportlinuxhosting | https://www.nosupportlinuxhosting.com]] $1 per month
+* [[http://www.bytemark.co.uk/]] £10 pm (Damian uses)
+
+== Functional Languages ==
+* [[elixir notes]] 

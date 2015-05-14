@@ -1,0 +1,4 @@
+Back to [[Home]]
+
+==== Misc ====
+* [[Javascript the Good Parts | http://shop.oreilly.com/product/9780596517748.do]]

@@ -1,0 +1,6 @@
+http://bower.io/ - "the package manager for the web"
+
+=== Installation ===
+as usual 
+{{{npm install -g bower}}}
+

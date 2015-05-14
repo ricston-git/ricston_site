@@ -1,0 +1,23 @@
+Back [[Home]]
+
+
+* [[ Sprotcore | http://sproutcore.com/]] client side mvc
+* [[ RightJS | http://rightjs.org/ ]]
+* [[ AngularJS | http://angularjs.org]] - [[AngularJs Notes]]
+* [[ ActiveJS | http://activejs.org/]]
+* [[ Erbix | http://www.erbix.com/ ]]
+* [[ Atom | https://github.com/theshock/atomjs]] - Atom is compact JavaScript framework oriented on modern browsers, which allows to support quite broad list of features without keeping a lot of cruft necessary to implement them in old browsers. MIT/LGPL.
+* [[ batman.js | http://batmanjs.org/]]
+* [[ ember.js | http://emberjs.com/]] like angularjs, moustache templating and data binding. 
+
+=== Client and Server - Javascript frameworks  === 
+* [[Meteor | https://www.meteor.com/main ]] - node.js currently under rewrite to regain popularity
+* [[Nowjs | http://nowjs.org/ ]] slow site doesn't inspire confidence :-) 
+* [[Mean]]
+
+
+=== Node Build Tools ===
+* [[bower]], [[grunt]]
+
+==== Single Page Frameworks ====
+* [[ScaleApp | http://www.scaleapp.org/]] 

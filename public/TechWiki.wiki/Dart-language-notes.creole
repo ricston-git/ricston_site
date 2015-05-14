@@ -1,0 +1,365 @@
+Back [[Home]]
+
+
+== Summary == 
+* [[http://api.dartlang.org/docs/channels/be/latest/index.html | Official Api Reference]]
+
+== Functions ==
+{{{
+    // named function
+    void sayGreeting(String salutation, String name) {
+      final greeting = '$salutation $name';
+      print(greeting);
+    }
+    
+    // function with statement body
+    window.on.click.add((event) {
+      print('You clicked the window.');
+    })
+    
+    // function with expression body
+    var items = [1, 2, 3, 4, 5];
+    var odd = items.filter((i) => i % 2 == 1);
+    print(odd); // [1, 3, 5]
+}}}
+    
+Classes
+{{{
+    class Point {
+      Point(this.x, this.y);
+      distanceTo(Point other) {
+        var dx = x - other.x;
+        var dy = y - other.y;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+      var x, y;
+    }
+}}}
+
+Class members:
+
+* Methods: see distanceTo(), above
+* Operators
+{{{
+    operator +(other) => new Point(x+other.x, y+other.y);
+}}}
+    
+* Fields
+{{{
+    num left, top, width, height;
+}}}
+    
+* Getters, setters
+{{{
+    num get right()           => left + width;
+        set right(num value)  => left = value - width;
+}}}
+== Constructors == 
+Normal constructors
+{{{
+    Rectangle(this.left, this.top, this.width, this.height);
+}}}
+Prefixing this. to parameters means that they will be automatically assigned to fields. This has been one of the proposed feature for JavaScript class literals.
+Named constructors. Without overloading, you need a way to distinguish between alternate constructors.
+{{{
+    Point.zero() : x = 0, y = 0;
+}}}
+Factory constructors are a way to mark constructors so that no instance is produced automatically. Then you can return cached instances or instances of a subclasses.
+{{{
+      factory Symbol(String name) {
+        if (_cache.containsKey(name)) {
+          return _cache[name];
+        } else {
+          const symbol = new Symbol._internal(name);
+          _cache[name] = symbol;
+          return symbol;
+        }
+      }
+
+      Symbol._internal(this.name);
+}}}
+      
+Interfaces
+{{{
+    interface Shape {
+      num perimeter();
+    }
+    class Rectangle implements Shape {
+      final num height, width; 
+      Rectangle(num this.height, num this.width); 
+      num perimeter() => 2*height + 2*width;
+    }
+}}}
+
+Factory classes for interfaces. An interface can specify a factory class which can be considered its default implementation. You can now directly instantiate the interface, its constructors delegate to the constructors of the factory class. If you use normal constructors then that is not much different from a normal class (but you don’t get the multiple inheritance of interfaces). Things become interesting with factory constructors, because you can create your own instance (including an instance of a subclass). I’ve seen interfaces being abused in Java code, to the point where there wasn’t a single class that didn’t implement an interface, so we’ll see where this goes. This feature does not provide mixin functionality. That is, if you implezment an interface, you don’t get default method implementations via the factory class.
+
+==== Dart Collections ====
+http://api.dartlang.org/docs/channels/stable/latest/dart_collection.html
+
+
+==== Lists and Arrays ====
+
+Arrays are Lists
+
+Perhaps the most common collection in nearly every programming language is the array, or ordered set of objects. Dart arrays are Lists, so look for List in the documentation. A Dart List will compile to a JavaScript array.
+
+Fun fact: As of 2011-12-22, the word "array" does not appear in the Dart spec.
+
+List basics
+
+Dart supports List literals like JavaScript. A simple Dart list:
+{{{
+main() {
+  var list = [1,2,3];
+  print( list is List ); // true
+}
+}}}
+
+Get the list's length, or number of elements inside of the list:
+{{{
+main() {
+  var list = [1,2,3];
+  print( list.length ); // 3
+}
+}}}
+
+Access the second element in the list: (notice how Dart list indexes are 0 based, i.e. 0 is the first element, 1 is the second element, etc)
+
+{{{
+main() {
+  var list = [1,2,3];
+  print( list[1] ); // 2
+}
+}}}
+
+
+If you try to reference an element that is outside the length of the list, you'll get an IndexOutOfRangeException.
+
+{{{
+main() {
+  var list = [1,2,3];
+  print( list[5] );  // Unhandled exception: IndexOutOfRangeException
+}
+}}}
+
+Add an element to a list constructed from a list literal:
+{{{
+main() {
+  List list = [1,2,3];
+  list.add(4);
+  print( list.length ); // 4
+}
+}}}
+
+Now is a good time to point out that the add(object) method is optional. That is, not all implementations of List have to support it. I don't personally like optional methods, but this is where we stand as of 2011-12-22.
+
+An example of a List that you can't add to is the fixed size List, as constructed by:
+
+{{{
+main() {
+  var list = new List(3);
+  list.add(4); // this throws an UnsupportedOperationException: Cannot add to a non-extendable array
+               // exception thrown for Lists constructed with an initial size
+}
+}}}
+
+Unfortunately, the docs right now don't clue you in that the new List(size) constructor returns a fixed size List, but follow bug 948 for the comment fix.
+
+It's important to know that when you construct a fixed size List, that the List itself is allocated to that size and filled with nulls for the size of the List. For example:
+
+{{{
+main() {
+  var list = new List(5); // [null,null,null,null,null]
+  print(list[0]);  // null
+}
+}}}
+
+Also important to know for JavaScript developers: Lists in Dart are not associative arrays. That is, the following code will NOT work in Dart:
+
+{{{
+main() {
+  var list = new List(); // no initial size! aka EMPTY
+  list[3] = 'hello'; // IndexOutOfRangeException
+}
+}}}
+
+Remove an element from a list: (I know, I know, we're lacking a simple removeAt(index) function (see bug 947). See comment about Josh Bloch above and just hang tight :)
+
+{{{
+main() {
+  List list = [1,2,3];
+  list.removeRange(1, 1); // remove only the second element
+  print( list.length ); // 2
+}
+}}}
+
+To print the elements of a List, we need to add a map() function to eventually convert a List to a List<String> because Strings.join only takes a List<String>. The Dart libs are lacking a map function on collections (see bug  945).
+
+{{{
+List map(List list, converter(x)) {
+  final List result = [];
+  for (final x in list) {
+    result.add(converter(x));
+  }
+  return result;
+}
+
+
+List<String> listToStrings(List list) {
+  return map(list, (x) => x.toString());
+}
+
+main() {
+  List list = [1,2,3];
+  print( Strings.join( listToStrings(list), ',' )); // 1,2,3
+}
+}}}
+
+==== Sorting ====
+
+Sorting a List takes advantage of Dart's function support.
+{{{
+main() {
+  var list = [4,1,2];
+  list.sort(compare(a,b) {
+    if (a == b) {
+      return 0;
+    } else if (a > b) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  // list is now 1,2,4
+}
+}}}
+
+==== Iterating ====
+
+Iterating over a List can be done in at least four ways. The standard, most familiar way is the for loop:
+{{{
+main() {
+  var list = [4,1,2];
+  for (var x = 0; x < list.length; x++) {
+    print(x);
+  }
+}
+}}}
+
+There's a more terse way of using for if you don't need the current iteration index:
+{{{
+main() {
+  var list = [4,1,2];
+  for (final x in list) {
+    print(x);
+  }
+}
+}}}
+
+The verbose way to say the above is to use a formal Iterator from the List:
+{{{
+main() {
+  var list = [4,1,2];
+  Iterator i = list.iterator();
+  while (i.hasNext()) {
+    print(i.next());
+  }
+}
+}}}
+
+And finally, if you just want to apply a function to each element of the List, use forEach:
+
+{{{
+main() {
+  var list = [4,1,2];
+  list.forEach(f(e) => print(e));
+}
+}}}
+
+==== Filtering ====
+
+The Collection interface, which List extends, provides a filter method, which returns a new collection with only the elements that satisfy a condition.
+
+An example of filtering:
+{{{
+main() {
+  var list = [4,1,2];
+  var evens = list.filter(f(e) => e % 2 == 0);
+  printList(evens); // 4,2
+}
+}}}
+
+Of course, you don't need to inline the filtering function. Passing in a function also works:
+{{{
+isEven(x) => x % 2 == 0;
+
+main() {
+  var list = [4,1,2];
+  var evens = list.filter(isEven);
+  printList(evens);
+}
+}}}
+
+Next steps
+
+Check out the every(bool f(E element)) and some(bool f(E element)) methods to check if the List matches every condition or at least one condition, respectively.
+
+Of course, please review the full Collection<E> docs and the List<E> docs.
+==== Isolates - Concurrency-ish ====
+Isolates - do concurrency if your machine supports it 
+{{{
+    // Receive messages
+    class Printer extends Isolate {
+      main() {
+        port.receive((message, replyTo) {
+          if (message == null) port.close();
+          else print(message);
+        });
+      }
+    }
+
+    // Send messages
+    main() {
+      new Printer().spawn().then((port) {
+        for (var message in ['Hello', 'from', 'other', 'isolate']) {
+          port.send(message);  
+        }
+        port.send(null);
+      });
+    }
+}}}
+
+Quoting the language specification:
+Dart code is always single threaded. There is no shared-state concurrency in Dart. Concurrency is supported via actor-like entities called isolates. An isolate is a unit of concurrency. It has its own memory and its own thread of control. Isolates communicate by message passing. No state is ever shared between isolates. Isolates are created by spawning.
+Generics
+
+{{{
+Reified generics (parameterized types):
+    main() {
+      print(new List<String>() is List<Object>);
+      print(new List<Object>() is List<String>);
+      print(new List<String>() is List<int>);
+      print(new List<String>() is List);
+      print(new List() is List<String>);
+    }
+Strings
+Triple quotes for multi-line strings
+    var message = """
+    Dear $user!
+
+    There has been a problem!
+    """;
+$ for variable interpolation:
+    var foo = "world";
+    print("Hello $foo");
+${} for expression interpolation:
+    print("Result: ${x + y}");
+}}}
+
+=== Standard Libaries ===
+There is a standard library with collection classes (List, Set, Queue, Map, etc.) and a DOM API.
+Equality is handled via the == operator and delegates to the Comparable interface (for non-null values).
+
+
+==== Unit Testing ====
+http://blog.sethladd.com/2013/01/holy-cow-dart-unit-tests-are-easy.html    

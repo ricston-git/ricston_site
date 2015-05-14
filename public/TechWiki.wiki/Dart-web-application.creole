@@ -1,0 +1,42 @@
+Back [[Home]]
+
+=== Getting Wired ===
+
+The basic dart wizard will crate a html page and wire it to the dart script ..like the following 
+
+
+{{{
+   <!-- the dart file you want to load -->
+   <script type="application/dart" src="mini.dart"></script>
+   <!-- the bootstrap script -->
+   <script src="packages/browser/dart.js"></script>
+}}}
+
+== Selectors and Events ==
+
+Dart uses a similar jquery selector 
+
+{{{
+ querySelector("#sample_text_id").text = buffer.toString();
+}}}
+
+
+| **Selector** | **Type,  | Example	Description** |
+| ID selector   |  #RipVanWinkle     | Matches a single, unique element |
+| HTML element	| p    | Matches all paragraphs | 
+| HTML element	| h1 | Matches all level-one headers | 
+| Class	        | .classname | Matches all items with the class classname | 
+| Asterisk	| *  | Matches all elements | 
+| Attribute	| input[type=”button”]      | Matches all button input elements | 
+
+
+Once you have selected an event you can bind it to events 
+
+{{{
+   elem.onMouseUp.then((event) => doCoolStuff());
+}}}
+
+or fire only once .. 
+{{{
+ elem.onMouseUp.first.then((event) => doCoolStuff());
+}}}

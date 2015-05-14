@@ -1,0 +1,263 @@
+Back [[Home]]
+
+==== installing ====
+out of the box the zk eclipse framework will use the Commerical version:
+Download the CE version 
+* wget http://sourceforge.net/projects/zk1/files/ZK/zk-6.5.2/zk-bin-6.5.2.zip/download
+
+* extract this to your apps folder 
+* update zk eclipse to use this CE version 
+{{http://i.imgur.com/CjIX3Go.png?500px}}
+
+**Note:** the classes output of your project should be **WEB-INF/classes**
+
+==== Installing in Mule Studio ====
+For mule 3.4 (built on Eclipes 3.8) compatabile with 4.2 
+Add 
+* http://download.eclipse.org/releases/juno 
+for resolving dependencies. And then add and install Studio 
+* http://studio.zkoss.org/resource/plugins/eclipse_4_2
+==== Button Layouts ==== 
+To align right and put space between buttons 
+{{{
+<div style="float:right;">
+    <button id="Submit" label="Submit" />
+    <space spacing="5px" orient="vertical" />
+    <button id="apply" label="Apply" />
+    <space spacing="5px" orient="vertical" />
+    <button id="clearAll" label="Clear All" />
+    <space spacing="5px" orient="vertical" />
+    <button id="close" label="Close" />
+</div>
+}}}
+
+==== Form Layout ==== 
+To get a neat form layout, use grid with fixed columns 
+http://www.zkoss.org/zkdemo/input/form_sample
+==== Data Binding ==== 
+Form level binding
+{{{
+apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('demo.input.form_sample.FormViewModel')"
+}}}        
+        
+
+Save only data binding annotations 
+{{{
+   <textbox value="@save(vm.person.firstname)"/>
+   <textbox value="@save(vm.person.firstname) @save(vm.tmpperson.firstname)"/>
+   <textbox value="@save(vm.person.firstname, before='update')"/>
+   <textbox value="@save(vm.person.firstname, after='delete')"/>
+   <textbox value="@save(vm.selected.firstname, before={'update','add'})"/>
+}}}
+
+==== Form Elements ====
+
+===== Radio Buttons ====
+{{{
+<radiogroup id="evt">
+  		<hbox width="100%" align="start">
+				<label value="Migrate Messages"
+					style="padding-left: 10px" />
+			</hbox>
+			<radio label="CmdMigrateDeal2" />
+			<radio label="CmdMigrateTitleRights" />
+			<radio label="CmdMigrateFinance" />
+
+}}}
+
+{{{
+@Wire
+  Radiogroup evt;
+	@Wire
+	Radiogroup migrate;
+
+	private static final long serialVersionUID = 1L;
+
+	@Listen("onClick=#Submit")
+	public void doSaveProfile() {
+		System.err.println("inside GetXmlController3  doing on click ");
+		System.err.println("Got submit index: " + evt.getSelectedItem().getLabel() );
+	}
+}}}
+
+
+===== TextArea's ===== 
+some what confusing zk uses the same zk input field for texbox and text area.. the key differnces is adding the **multiline="true"** attribute 
+
+
+
+==== Message Boxes ===== 
+Message boxes can be triggered from the controller without any client code required. 
+
+{{{
+Messagebox.show("Warning is pressed", "Warning", Messagebox.OK, Messagebox.EXCLAMATION);
+
+Messagebox.show("Question is pressed. Are you sure?", "Question", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+
+Messagebox.show("Information is pressed", "Information", Messagebox.OK, Messagebox.INFORMATION);
+}}}
+==== BandBox ==== 
+http://zkfiddle.org/sample/3dvmg79/2-Dropdown-multiselect-list
+
+==== Injecting in Jquery ====
+Zk supports jquery out of the box. For example if I wanted to modify a textarea wiht a custom attribute, add the following javsascript to the zul page:
+
+{{{
+<script>
+zk.afterMount(function () {
+    jq("textarea").attr("spellcheck", "false");
+});
+</script>
+}}}
+
+==== Timer - Refresh ==== 
+Refresh page 
+
+{{{
+<!-- refresh content every 5 seconds -->
+    <timer id="timer" delay="2000" repeats="true" /> 
+}}}
+    
+==== Building and Deploying - Maven etc. ==== 
+The deploy path for Webcontent folder can be configured in eclipse in the project properties:
+
+Perhaps worth adding the lib to WEB-INF/lib as well 
+{{:webcontent.png?300|}}
+
+an example maven build file that then builds assumes 
+/src/main/java 
+/src/main/webapp
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>zk.app</groupId>
+	<artifactId>zkoss-Webapp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<javax.servlet.version>3.0.1</javax.servlet.version>
+		<jawwa.version>0.4.1</jawwa.version>
+		<zk.version>6.5.2</zk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>WebContent\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.7.v20120910</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkplus</artifactId>
+			<version>${zk.version}</version>
+
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zhtml</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkbind</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zul</artifactId>
+			<version>${zk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esotericsoftware.kryo</groupId>
+			<artifactId>kryo</artifactId>
+			<version>2.21</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ngi</groupId>
+			<artifactId>zhighcharts</artifactId>
+			<version>0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.2.4</version>
+		</dependency>
+		<!-- Activemq Dependency for Jmx beans -->
+
+
+		<!-- apache http and commons -->
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>ZK CE</id>
+			<name>ZK CE Repository</name>
+			<url>http://mavensync.zkoss.org/maven2</url>
+		</repository>
+		<!-- <repository> <id>ZK EVAL</id> <name>ZK Evaluation Repository</name> 
+			<url>http://mavensync.zkoss.org/eval</url> </repository> -->
+	</repositories>
+
+</project>
+}}}
+
+
+
+==== Wiring up Components ==== 
+* [[http://books.zkoss.org/wiki/ZK_Developer's_Reference/MVC/Controller/Wire_Components | Wire Components Ref.]]
+==== Links and References ====
+* Zk5 ish blog  http://emrpms.blogspot.com/2012/06/list-item-on-select-show-more-details.html
+* Another [[ zk blog | http://ben-bai.blogspot.in/]]
+* Firefox [[Zk Plugin | http://books.zkoss.org/wiki/ZK_Jet ]]
+* Zk [[Sourceforge | http://sourceforge.net/projects/zk1/files/]] projects and files 
+* [[ Zk Fiddle | http://zkfiddle.org/]]
+* Github Zk themes https://github.com/zkoss/zkthemes
+* zk less http://code.google.com/p/zuss/
+* ZK [[Event Queues | http://books.zkoss.org/wiki/ZK_Developer's_Reference/Event_Handling/Event_Queues]]

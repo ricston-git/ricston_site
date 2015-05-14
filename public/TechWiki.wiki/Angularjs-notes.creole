@@ -1,0 +1,112 @@
+Back [[Home]] see also [[Angular Dart]]
+
+==== Overview ====
+* Official Angular Js api notes http://docs.angularjs.org/
+* [[AngularJs from a JQuery Background]] originally from Stackoverflow
+
+==== Notes =====
+AngularJs is a modern html5 ready client (javascript) web framework for MVC and MVVC web development.
+
+Angualrjs typically work with single page applications starting with a single **Index.html** includes all scripts and styles we're using, just as a regular .html-file would. It will also initialize our AngularJS-app and acts as a container for other templates. 
+
+==== Angular and Mvc ====
+The pretty standard MVC pattern applied to AngularJs looks like:
+
+**Model:** the data structure behind a specific piece of the application, usually JSON. For instance a group of User IDs could have the following model:
+{{{
+{
+  "users" : [{
+    "name": "Joe Bloggs",
+    "id": "82047392"
+  },{
+    "name": "John Doe",
+    "id": "65198013"
+  }]
+}
+}}}
+
+The data is retrived from the server typically in ajax calls. People familiar with jQuery use {{{$.ajax}}} method, **but** Angular wraps this in {{{$http}}}
+
+**View:** The view in angular is your HTML and/or rendered output. Using an MVC framework, you'll pull down Model data which updates your View and displays the relevant data in your HTML. This can include Angular's own templates used in custom directives (more on these later)
+
+**Controller:** Angular's javascript controller class(es) manage the interaction in the page and the backend data
+
+
+==== Overview ====
+
+Simple AngularJs pages provide **Dynamic Binding** with Javacript data, meaning html elements with braces **{{value}}** will be subsituted. 
+
+Getting Started with [[Dynamic Binding]]
+
+**Directives** are a means to provide a custom tag that appears in the application to provide html, css and/or dom manipulation e.g  {{{<datepicker>}}}, there are whole series of **core** directives used for creating typical web and html forms http://docs.angularjs.org/api/ng#directive
+
+Custom directives can also be created see,  [[Getting Started with Directives]]
+
+The directives are used in plain html and in templates to create content
+
+**Templates** are snippets of HTML, which contain parts of the UI of our application.
+
+**Controllers** handle most of the complex logic related to data and templates. The core of a controller is the {{{$scope}}} object, which injects data into a template. It binds data in both ways, meaning that changes are propagated from controllers to views and vice versa. It's really handy, and we'll get into that a bit later.
+
+**Router** maps URLs to certain templates and controllers. Routers make deep links possible.
+
+**Services** are wrappers for functionality in AngularJS. We will implement a resource-service
+
+==== Starting a Bare Essential Angular Project ====
+* This example creates a [[Bare Essential AngularJs Project]]
+
+==== Chaining Requests ====
+Yes, this is handled very elegantly by AngularJS since its $http service is build around the PromiseAPI. Basically a call to any of $http methods return a promise and you can promises very easily by using the then method. Here is an example:
+
+{{{
+$http.get('http://host.com/first')
+   .then(function(result){
+    //post-process results and return
+    return myPostProcess1(result.data); 
+   })
+   .then(function(resultOfPostProcessing){
+    return $http.get('http://host.com/second'); 
+   })
+   .then(function(result){
+    //post-process results of the second call and return
+    return myPostProcess2(result.data); 
+   })
+   .then(function(result){
+      //do something where the last call finished
+   });
+}}}
+
+
+
+==== Extensions ====
+* [[Angular Ui | http://angular-ui.github.io/]] Adding components to angular a little like jquery ui
+* [[Angular modules  | http://ngmodules.org/]] including the important [[Angular Grid | http://angular-ui.github.io/ng-grid/]]
+* [[Bootsrap components in pure AngularJs | http://angular-ui.github.io/bootstrap/]]
+This will provide: **Accordian**,  **Alerts**, **Buttons**, **Carousel**, **Collapse**, **Datepicker**, **Modal**, **Pagination**, **Popover**, **Progress Bar**, **Ratings**, **Tabs**, **TimePicker**, **Tooltip**, **TypeAhead**
+
+
+* [[Angularjs and d3js | https://leanpub.com/d3angularjs]]
+
+==== Backend Integration ====
+* Jackson or Fastjson can be used to json-ize a java object and Jackson is supported by Spring MVC
+* [[Angular Js and Microsoft MVC | http://www.justinemathews.com/?p=122]] 4 aps backend
+* [[Restangular | https://github.com/mgonto/restangular]] a rest framework for Angularjs
+
+==== Helper Tools ====
+* [[Yo | http://yeoman.io/]] scaffolds out a new application, writing your Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.
+* [[Grunt | http://yeoman.io/]] is used to build, preview and test your project, thanks to help from tasks curated by the Yeoman team and grunt-contrib.
+* [[ Bower | http://yeoman.io/]] is used for dependency management, so that you no longer have to manually download and manage your scripts.
+* [[Karma | http://karma-runner.github.io/0.10/index.html]] Angular team's own test runner
+ 
+
+==== Misc ====
+* Nice intro to [[Angular Routing and Views | http://scotch.io/tutorials/javascript/single-page-apps-with-angularjs-routing-and-templating]] 
+* [[Demonstration Form Builder | http://selmanh.github.io/angularjs-form-builder/#/]]
+* [[Drag and Drop Form Builder | http://kelp404.github.io/angular-form-builder/]]
+* [[plnkr.co | http://plnkr.co/tags/angularjs]] online AngularJs play area 
+* [[Online Training Videos | https://egghead.io/lessons]]
+* [[Smooth Scroll Directive | https://github.com/arnaudbreton/angular-smoothscroll]]
+* An extensive collection of links for [[Learning AngularJs | https://github.com/jmcunningham/AngularJS-Learning]]
+* [[Angularjs and IE | http://docs.angularjs.org/guide/ie]]
+* [[Sublime 2 Package | https://github.com/angular-ui/AngularJS-sublime-package]]
+* [[Angularjs Eclipse | https://github.com/angelozerr/angularjs-eclipse]]

@@ -1,0 +1,5 @@
+Back [[Home]]
+
+==== Bootstrap Notes ====
+* http://scotch.io/bar-talk/understanding-the-bootstrap-3-grid-system
+* [[Bootstrap Style Templates | http://bootstrapstyler.com/]]

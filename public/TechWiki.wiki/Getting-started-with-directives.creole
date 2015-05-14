@@ -1,0 +1,250 @@
+Back to [[Angularjs notes]]
+
+AngularJs provides means to create and use custom tags.
+
+
+==== AngularJS’s in-built directives ====
+
+AngularJS comes with a whole set of directives, including {{{ngHide / ngShow, ngClick, ngRepeat}}} and many more. 
+
+==== Writing a Custom Directive ====
+Writing a custom directive is fairly easy in AngularJS. We’ll see how to write one by writing a small directive for displaying a "star ratings" box.
+
+
+**Step 1** – Add the trivial rating directive, and use it from the html
+
+In our first step we will just initialize the rating directive and use it but without displaying anything.
+
+{{{
+angular.module('FundooDirectiveTutorial', [])
+  .directive('fundooRating', function () {
+    return {
+      restrict: 'A',
+      link: function (scope, elem, attrs) {
+        console.log("Recognized the fundoo-rating directive usage");
+      }
+    }
+}}}
+
+* The **directive()** function is used to create a directive named ‘fundooRating’. The directive returns an object (called the directive definition object) in its callback function. 
+* The **restrict()** option is used to specify whether the directive will be used as an element, attribute or a class. The valid values for ‘restrict’ are
+
+ * ‘A’ – Attribute (You want to use your directive as <div rating>)
+ * ‘E’ – Element (Use it as <rating>)
+ * ‘C’ – Class. (Use it like <div class=”rating”>)
+ * ‘M’ – Comment (Use it like <!– directive: rating –>
+
+**Note:** it is recommended to not use a directive as an element as certain older browsers like IE or earlier can not recognize custom elements. (google angularjs and IE)
+
+The html for the directive can be written as
+
+{{{ <div fundoo-rating></div> }}}
+
+**Step 2** – Show filled stars based on bound rating value
+
+In our second step we display the stars as filled based on the bound value passed to the directive. Our directive would now look like this,
+
+{{{
+directive('fundooRating', function () {
+    return {
+      restrict: 'A',
+      template: '<ul class="rating">' +
+                  '<li ng-repeat="star in stars" class="filled">' +
+                      '\u2605' +
+                  '</li>' +
+                '</ul>',
+      scope: {
+        ratingValue: '='
+      },
+      link: function (scope, elem, attrs) {
+        scope.stars = [];
+        for (var i = 0; i < scope.ratingValue; i++) {
+          scope.stars.push({});
+        }
+      }
+  }
+});
+}}}
+
+We just added two new fields to the directive definition 
+* scope - the scope field specifies the variables that will be on the scope of the directive. The ‘=’ for ratingValue indicates that ratingValue expects an object from the directive.
+* template. The template field specifies the template that will be used by the directive 
+**Note:** There is also another variable on the scope called **stars**. We have not declared it inside the scope object because only those variables that need to passed in from the HTML are specified there.
+
+* The link() function still does not do anything except traversing through a loop and push empty objects inside the stars array.
+
+The html will now change to this,
+{{{
+<body ng-init="rating = 5">
+  Rating is {{rating}} <br/>
+  <div fundoo-rating rating-value="rating"></div>
+</body>
+}}}
+
+The ng-init directive initializes a variable ‘rating‘ with the value 5, which is then passed to the directive’s rating-value field on the scope.
+
+**Step 3** – Set max rating, and show filled stars as per ratingValue
+
+We’ve covered how to use a directive to display rating stars on the screen. But these ratings just show as many stars as the ratings. What we ideally want are unfilled stars to reflect the maximum rating, and filled stars to reflect the real rating. So let us see how we would add that.
+
+To do that we’ll have to add some functionality to our link function. So here we go,
+
+{{{
+link: function (scope, elem, attrs) {
+   scope.stars = [];
+   for(var i = 0; i < scope.max; i++) {
+      scope.stars.push({filled: i < scope.ratingValue});
+   }
+}
+}}}
+
+Here, every element of stars array has an object with value ‘filled‘ that is evaluated to true or false based on the value of scope.ratingValue that we get from the DOM. But wait a minute, did you notice the scope.max in the for loop? The scope.max is variable is declared on the scope to get the maximum value of the rating passed in through the HTML.
+
+{{{
+scope: {
+   ratingValue: '=',
+   max: '='
+}
+}}}
+
+The html will now change to,
+
+{{{
+<div fundoo-rating rating-value="rating" max="10"></div>
+}}}
+
+
+**Step 4*** – Change rating whenever ratingValue variable changes
+
+But this is still a very static directive. Till now the directive is just taking an explicit value set by the **ng-init** directive. What if the value of the rating variable changes? Our directive won’t change to reflect that. So let us see how we would go about ensuring that our directive responds to changes in the variable.
+{{{
+link: function (scope, elem, attrs) {
+   var updateStars = function() {
+      scope.stars = [];
+      for(var i = 0; i < scope.max; i++) {
+         scope.stars.push({filled: i < scope.ratingValue});
+      }
+  };
+
+  scope.$watch('ratingValue', function(oldVal, newVal) {
+     if(newVal) {
+       updateStars();
+     }
+ });
+}}}
+
+Now, we have wrapped our for loop inside a function called updateStars(), and added an angular {{{$watch}}} method. The {{{$watch()}}} is a method on the scope that is used to watch the state of an objects on the scope. Here, the $watch method detects changes in the value of scope.ratingValue object, and it executes the updateStars method when it detects a change.
+
+Now, let us add a button to our UI to change the value of rating after the initialization:
+{{{
+<div fundoo-rating rating-value="rating" max="10"></div>
+
+<button ng-click="rating = 7">Change rating to 7</button>
+}}}
+
+Now, since the ‘rating’ variable is bound to the ratingValue object, it immediately triggers the $watch() function with a new value which then executes the updateStars() function to update the number of stars to be shown as filled.
+
+
+**Step 5** – Add ability to click and change a rating
+
+Great, so we have a rating widget that changes the rating when its binding model value changes. But we still can’t click on it to change or submit a rating. How do we do that? It’s simple, we add **click event** listeners to our directive. The only minor change we’ll need to make is add a function to the scope in the link function to handle the click and call it from inside the template as follows,
+
+In the template make these changes,
+{{{
+<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">
+}}}
+
+In the link() function add a toggle() function,
+
+{{{
+scope.toggle = function(index) {
+   scope.ratingValue = index + 1;
+};
+}}}
+
+In the above example the list item calls the toggle function when clicked along with the $index value which is nothing but the index of the list element inside the repeater. The toggle() function has to be on the scope for it to be accessible from the template. The toggle() function increments or decrements the value of the scope.ratingValue according to the index. This triggers the $watch() function which then updates the state of the stars.
+
+
+**Step 6** – Add ability to make ratings widget readonly
+
+What if I wanted my directive to be read only?  i.e, Some ratings should only be viewable, but should not allow users to change the rating. We can add that pretty easily as follows:
+
+First, we need to add another field to the scope object called readonly:
+
+{{{
+scope: {
+   ratingValue: '=',
+   max: '=',
+   readonly: '@'
+}
+}}}
+
+
+We have declared readonly with **‘@’** to accept a string value instead of an object value. So our html for the directive would change like this,
+
+{{{
+<div fundoo-rating rating-value="rating" max="10" readonly="true"></div>
+}}}
+
+But there’s something amiss, how will my directive know that it has to disable the onclick of ratings directive. To achieve that we have to make changes to our toggle function like this,
+
+scope.toggle = function(index) {
+   if(scope.readonly && scope.readonly === 'true') {
+      return;
+   }
+   scope.ratingValue = index + 1;
+};
+
+Here, the toggle function will only change the value of scope.ratingValue if readonly is not set to true.
+
+
+**Step 7** – Add rating selected callback
+
+We now have a fully working rating widget, that can show ratings, respond to changes and handle user clicks. This completes for the most part our AngularJS Directives Tutorial. But how about we add one last feature to it as a bonus? Let us add an event listener that gets triggered whenever the user selects a rating. This could be used to handle logic specific to a controller, like possibly saving the rating to a server, etc. Let us take a look how we would accomplish this:
+
+We first add a function binding to the directive definitions scope parameter, called “onRatingSelected” as follows:
+
+{{{
+scope: {
+      ratingValue: '=',
+      max: '=',
+      readonly: '@',
+      onRatingSelected: '&'
+    }
+}}}
+
+The **‘&’** symbol tells  onRatingSelected  to expect a function . The html for this would be,
+
+{{{
+<div fundoo-rating rating-value="rating" max="10" on-rating-selected="saveRatingToServer(newRating)"></div>
+}}}
+
+But wait, from where is the saveRatingToServer function coming from? Since onRatingSelected accepts a function, it has to be passed a function which is on the scope of the Controller where the HTML resides.
+
+So next, we’ll define the controller that has a function called **saveRatingToServer()** and the rating variable which we were initializing with ng-init till now. The code for the controller is as follows,
+
+{{{
+ controller('FundooCtrl', function($scope, $window) { 
+   $scope.rating = 5; 
+   $scope.saveRatingToServer = function(rating) { 
+       $window.alert('Rating selected - ' + rating); 
+   }; 
+ })
+}}}
+
+Now the only thing left is to call the onRatingSelected() function from inside the directive. And what better place to call it from inside the toggle function where we are handling our click events.
+
+{{{
+scope.toggle = function(index) {
+    if(scope.readonly && scope.readonly === 'true') {
+       return;
+    }
+    scope.ratingValue = index + 1;
+    scope.onRatingSelected({newRating: index + 1});
+};
+}}}
+
+One thing extremely important to note over here is that the object passed as argument should have the same key values (i.e. newRating) as they were passed in the html call to the function. So if you had called the sendRatingToServer() function as sendRatingToServer(rating, stars) it needs to be called in the directive with the same keys i.e., scope.onRatingSelected({rating: index+1, stars: 5});
+
+==== See it in Action ====
+* http://jsfiddle.net/abhiroop/G3UCK/1/light/
