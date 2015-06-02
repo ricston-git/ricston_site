@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="public">
+    <meta http-equiv="Age" content="86400">
+    <meta http-equiv="Content-Encoding" content=”gzip”/>
+    
+
+
+    <title>
+        
+        Ricston UK Ltd - The Integration nijas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Back Home
+About sqlStructured Query Language (SQL) is a language for querying databases. Questions should include code examples, table structure, and a tag for the DBMS implementation (e.g. MySQL, Pos">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ricston UK Ltd - The Integration nijas">
+<meta property="og:url" content="http://ricston.co.uk/wiki/sql.html">
+<meta property="og:site_name" content="Ricston UK Ltd - The Integration nijas">
+<meta property="og:description" content="Back Home
+About sqlStructured Query Language (SQL) is a language for querying databases. Questions should include code examples, table structure, and a tag for the DBMS implementation (e.g. MySQL, Pos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ricston UK Ltd - The Integration nijas">
+<meta name="twitter:description" content="Back Home
+About sqlStructured Query Language (SQL) is a language for querying databases. Questions should include code examples, table structure, and a tag for the DBMS implementation (e.g. MySQL, Pos">
+    
+    <link rel="alternative" href="/atom.xml" title="Ricston UK Ltd - The Integration nijas" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+
+
+    <!-- Bootstrap  -->
+    <link type="text/css" rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/custom/bootstrap.min.css">
+    <!-- web font  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800" rel="stylesheet" type="text/css">
+    <!-- plugin css  -->
+    <link rel="stylesheet" type="text/css" href="/css/animate.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/css/magnific-popup.css"/>-->
+    <!--<link type="text/css" rel="stylesheet" href="/css/isotype_style.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/flexslider.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/pageslide/jquery.pageslide.css"/>
+    <!-- Owl carousel-->
+    <link rel="stylesheet" href="/owl.carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/owl.carousel/owl.theme.css">
+    <link rel="stylesheet" href="/owl.carousel/owl.transitions.css">
+    <link rel="stylesheet" href="/bower_components/fontawesome/css/font-awesome.css"/>
+    <!-- Custom css -->
+    <link type="text/css" rel="stylesheet" href="/css/layout.css">
+    <link type="text/css" id="colors" rel="stylesheet" href="/css/colors.css">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<!-- globalWrapper -->
+<div id="globalWrapper" class="localscroll">
+<!-- header -->
+<header id="mainHeader" class="navbar-fixed-top" role="banner">
+    <div class="container">
+        <nav class="navbar navbar-default scrollMenu" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/index.html"><img width="180px" src="/images/ricstonLogoNew2.gif" alt="Ricston Logo"/></a></div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse" id="scrollTarget">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="active"><a href="/"><i class="fa fa-home"></i>Home</a></li>
+                    <li id="services"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false">
+                            <i class="fa fa-thumbs-up"></i>Services</a>
+                        <!--<span class="caret"></span>-->
+                        <!--</a>-->
+                        <ul class="dropdown-menu right" role="menu">
+                            <li class="customMenu"><a href="/#services">Our Services</a></li>
+                            <li class="customMenu"><a href="/tech/#Mule">Mule Integration</a></li>
+                            <li class="customMenu"><a href="/tech/#Open Source">Open Source</a></li>
+                            <li class="customMenu"><a href="/tech/java.html">Java</a></li>
+                            <li class="customMenu"><a href="/tech/#Migration">Migration</a></li>
+                            <li class="customMenu"><a href="/tech/#DevOps">Dev Ops</a></li>
+                            <li class="customMenu"><a href="/tech/#Testing">Testing</a></li>
+                            <li class="customMenu"><a href="/tech/#Db Design">DB Design</a></li>
+                            <li class="customMenu"><a href="/tech/#Big Data">Big Data</a></li>
+                            <li class="customMenu"><a href="/tech/#Micro Services">Micro Services</a></li>
+                            <li class="customMenu"><a href="/tech/#Apis">Apis</a></li>
+                        </ul></li>
+                    <li><a href="/#about"><i class="fa fa-question"></i>About Us</a></li>
+                    <li id="industries"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i
+                                    class="fa fa-paperclip"></i>Industries</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="customMenu"><a href="/industries/">Industries</a></li>
+                            <li class="customMenu"><a href="/industries/#Media_&_Telecom">Telecoms & Media</a></li>
+                            <li class="customMenu"><a href="/industries/#Retail">Retail</a></li>
+                            <li class="customMenu"><a href="/industries/#Finance">Finance</a></li>
+                            <li class="customMenu"><a href="/industries/#Government">Government</a></li>
+                        </ul>
+                    </li>
+                    <li id="works"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i class="fa fa-align-justify"></i>Works</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="customMenu"><a href="/#Works">Projects</a></li>
+                            <li class="customMenu"><a href="/presentations">Presentations</a></li>
+                            <li class="customMenu"><a href="/blog">Tech Blog</a></li>
+                            <li class="customMenu"><a href="http://ricston.com/blog">Mule Blog</a></li>
+                            <li class="customMenu"><a href="/wiki/index.html">Wiki</a></li>
+                        </ul>
+                    </li>
+                    <li id="people"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-users"></i>Our Team</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="customMenu"><a href="/#team">Our Team</a></li>
+                            <li class="customMenu"><a href="/careers">Careers</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#contactSlice"><i class="fa fa-mail-reply"></i>Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- header variables -->
+ <!--404.html-->
+ <!---->
+ <!--404.html-->
+ <!--404.html-->
+ <!--/home/richard/workspace/workspace_ricston/ricston_site/source/404.html-->
+ <!---->
+
+
+<script type="application/javascript">
+    $(document).ready(function(){
+//        alert ("got updated page   " );
+        if ( document.location.pathname.startsWith("/tech")){
+            $('.active').attr("class", "");
+            $('li#works').attr("class","active");
+        } else  if ( document.location.pathname.startsWith("/services") ){
+            $('.active').attr("class", "");
+            $('li#services').attr("class","active");
+        }  else  if ( document.location.pathname.startsWith("/caseStudies")) {
+            $('.active').attr("class", "");
+            $('li#services').attr("class", "active");
+        }  else  if ( document.location.pathname.startsWith("/careers")) {
+            $('.active').attr("class", "");
+            $('li#people').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/industries")) {
+            $('.active').attr("class", "");
+            $('li#industries').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/blog")) {
+            $('.active').attr("class", "");
+            $('li#works').attr("class", "active");
+        }  else  if ( document.location.pathname.startsWith("/people")) {
+            $('.active').attr("class", "");
+            $('li#people').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/wiki")) {
+            $('.active').attr("class", "");
+            $('li#works').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/presentations")) {
+            $('.active').attr("class", "");
+            $('li#works').attr("class", "active");
+        }
+    });
+</script>
+
+<!-- header -->
+  <div class="container" id="">
+    <!--<div id="wrap">-->
+      <div class="">
+        <section id="main"><article id="page-undefined" class="article article-type-page col-md-20" itemscope
+         itemprop="blogPost">
+    <div class="article-meta">
+        <a href="/wiki/sql.html" class="article-date">
+  <time datetime="2015-06-02T16:17:28.694Z" itemprop="datePublished">2015-06-02</time>
+</a>
+        
+    </div>
+    <div class="article-inner">
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            <p>Back <a href="/wiki">Home</a></p>
+<h2 id="About_sql">About sql</h2><p>Structured Query Language (SQL) is a language for querying databases. Questions should include code examples, table structure, and a tag for the DBMS implementation (e.g. MySQL, PostgreSQL, Oracle, MS SQL Server) being used. If your question relates to a specific DBMS (uses specific extensions/features), use that DBMS’s tag instead. Answers to questions tagged with SQL should use ANSI SQL as much as possible.</p>
+<p>SQL is an acronym that stands for <em>Structured Query Language</em>.</p>
+<p>One subset of the SQL standard consists of the <strong>DDL</strong> (data definition language), which is used to create tables and constraints. These include:</p>
+<ul>
+<li><code>CREATE</code></li>
+<li><code>DROP</code></li>
+<li><code>ALTER</code></li>
+</ul>
+<p>Another subset is the <strong>DML</strong> (data manipulation language):</p>
+<ul>
+<li><code>SELECT</code></li>
+<li><code>INSERT</code></li>
+<li><code>UPDATE</code></li>
+<li><code>DELETE</code></li>
+</ul>
+<p>The final “standard” subset of commands is the <strong>DCL</strong> (data control language):</p>
+<ul>
+<li><code>GRANT</code></li>
+<li><code>REVOKE</code></li>
+</ul>
+<p>Many database implementations require the use of SQL, and over the years, vendors have implemented dialects of SQL to provide more functionality as well as simplify it. Because of these deviations from the standard, SQL is fractured - syntax that works on one vendor does not necessarily work on another.</p>
+<p><strong>ISO/IEC</strong> (formerly ANSI) standards have been beneficial in resolving such situations, but adoption is selective. Queries conforming to these standards should be portable to other databases, but it does not mean that performance will be the same nor that performance will be on par with native functionality.</p>
+<p>Most DBMS have additional languages for writing stored procedures. In Oracle this is PL/SQL, in PostgreSQL it’s PL/pgSQL. Outside of stored procedures or functions, these DBMS use SQL. Thus the tags <a href="http://stackoverflow.com/questions/tagged/plsql" title="show questions tagged &#39;plsql&#39;" target="_blank" rel="external">plsql</a> and <a href="http://stackoverflow.com/questions/tagged/plpgsql" title="show questions tagged &#39;plpgsql&#39;" target="_blank" rel="external">plpgsql</a> should only be used for problems directly related to writing stored procedures. Microsoft SQL Server uses the term T-SQL (<a href="http://stackoverflow.com/questions/tagged/tsql" title="show questions tagged &#39;tsql&#39;" target="_blank" rel="external">tsql</a>) for both, “plain” SQL (queries, DML, ..) and the language used for stored procedures.</p>
+<h3 id="Tagging_Recommendation">Tagging Recommendation</h3><p>This tag should be used for general SQL programming language questions, in addition to tags for specific products (for example, questions about Microsoft SQL Server should use the <a href="http://stackoverflow.com/questions/tagged/sql-server" title="show questions tagged &#39;sql-server&#39;" target="_blank" rel="external">sql-server</a> tag, or questions regarding MySQL should use the <a href="http://stackoverflow.com/questions/tagged/mysql" title="show questions tagged &#39;mysql&#39;" target="_blank" rel="external">mysql</a> tag) that implement some flavor of this language. SQL is the umbrella under which these products exist; tagging them by product (including version, e.g <a href="http://stackoverflow.com/questions/tagged/oracle11g" title="show questions tagged &#39;oracle11g&#39;" target="_blank" rel="external">oracle11g</a>, <a href="http://stackoverflow.com/questions/tagged/sql-server-2008" title="show questions tagged &#39;sql-server-2008&#39;" target="_blank" rel="external">sql-server-2008</a>) is the easiest way to know what functionality is available for the task at hand. It is very common for <a href="http://stackoverflow.com/questions/tagged/mysql" title="show questions tagged &#39;mysql&#39;" target="_blank" rel="external">mysql</a> questions to omit this tag because query discussions on MySQL are more often stated as MySQL rather than SQL in general.</p>
+<p>Please read this <a href="http://en.wikipedia.org/wiki/SQL-92" target="_blank" rel="external">summary</a> about the SQL standard (1992 one in this case, broadly implemented) and if you can, refer to the <a href="http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt" target="_blank" rel="external">book itself</a>.</p>
+<h3 id="Free_SQL_Programming_Books">Free SQL Programming Books</h3><ul>
+<li><a href="http://www.cs.arizona.edu/people/rts/publications.html" target="_blank" rel="external">Developing Time-Oriented Database Applications in SQL</a></li>
+<li><a href="http://use-the-index-luke.com/" target="_blank" rel="external">Use The Index, Luke!: A Guide To SQL Database Performance</a></li>
+<li><a href="http://sql.learncodethehardway.org/" target="_blank" rel="external">Learn SQL The Hard Way</a></li>
+<li><a href="http://www.w3schools.com/sql/default.asp" target="_blank" rel="external">SQL Tutorial For Starters</a></li>
+<li><a href="http://www.computer-books.us/sql.php" target="_blank" rel="external">SQL - Free books</a></li>
+<li><a href="http://www.onlineprogrammingbooks.com/sql" target="_blank" rel="external">SQL - Free books 2</a></li>
+</ul>
+<h3 id="Free_SQL/Database_Online_Courses">Free SQL/Database Online Courses</h3><ul>
+<li><a href="https://class.coursera.org/db/auth/auth_redirector?type=login&amp;subtype=normal" target="_blank" rel="external">Coursera-Introduction to Databases</a></li>
+<li><a href="https://www.google.com.pk/search?q=stanford+database+course&amp;oq=stanford+database+course&amp;aqs=chrome..69i57j0l5.8288j0j7&amp;sourceid=chrome&amp;espv=2&amp;es_sm=122&amp;ie=UTF-8" target="_blank" rel="external">Stanford Online-DB: Introduction to Databases</a></li>
+</ul>
+<h3 id="Useful_Resources">Useful Resources</h3><p>You should always provide complete code examples (e.g. schema, data sample and expected result) in your question or answer, but you can also isolate problematic code and reproduce it in an online environment such as <a href="http://sqlfiddle.com/" target="_blank" rel="external">SQL Fiddle</a>.</p>
+<p>MySQL is managed and maintained by Oracle and in-depth documentation can be found at the <a href="http://www.mysql.com/" target="_blank" rel="external">MySQL website</a>.</p>
+<h3 id="More_specific_tags">More specific tags</h3><p>When you are asking question about SQL you can also add more specific tag. Here is the list of available tags:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/tagged/sqlbulkcopy" title="show questions tagged &#39;sqlbulkcopy&#39;" target="_blank" rel="external">sqlbulkcopy</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sqlconnection" title="show questions tagged &#39;sqlconnection&#39;" target="_blank" rel="external">sqlconnection</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sqlcommand" title="show questions tagged &#39;sqlcommand&#39;" target="_blank" rel="external">sqlcommand</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-copy" title="show questions tagged &#39;sql-copy&#39;" target="_blank" rel="external">sql-copy</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-convert" title="show questions tagged &#39;sql-convert&#39;" target="_blank" rel="external">sql-convert</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-delete" title="show questions tagged &#39;sql-delete&#39;" target="_blank" rel="external">sql-delete</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-drop" title="show questions tagged &#39;sql-drop&#39;" target="_blank" rel="external">sql-drop</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sqldatetime" title="show questions tagged &#39;sqldatetime&#39;" target="_blank" rel="external">sqldatetime</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-date-functions" title="show questions tagged &#39;sql-date-functions&#39;" target="_blank" rel="external">sql-date-functions</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-function" title="show questions tagged &#39;sql-function&#39;" target="_blank" rel="external">sql-function</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-job" title="show questions tagged &#39;sql-job&#39;" target="_blank" rel="external">sql-job</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-like" title="show questions tagged &#39;sql-like&#39;" target="_blank" rel="external">sql-like</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-limit" title="show questions tagged &#39;sql-limit&#39;" target="_blank" rel="external">sql-limit</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-merge" title="show questions tagged &#39;sql-merge&#39;" target="_blank" rel="external">sql-merge</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-order-by" title="show questions tagged &#39;sql-order-by&#39;" target="_blank" rel="external">sql-order-by</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-returning" title="show questions tagged &#39;sql-returning&#39;" target="_blank" rel="external">sql-returning</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-server-job" title="show questions tagged &#39;sql-server-job&#39;" target="_blank" rel="external">sql-server-job</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/to-date" title="show questions tagged &#39;to-date&#39;" target="_blank" rel="external">to-date</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/triggers" title="show questions tagged &#39;triggers&#39;" target="_blank" rel="external">triggers</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-timestamp" title="show questions tagged &#39;sql-timestamp&#39;" target="_blank" rel="external">sql-timestamp</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-update" title="show questions tagged &#39;sql-update&#39;" target="_blank" rel="external">sql-update</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sql-view" title="show questions tagged &#39;sql-view&#39;" target="_blank" rel="external">sql-view</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/stored-procedures" title="show questions tagged &#39;stored-procedures&#39;" target="_blank" rel="external">stored-procedures</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/having" title="show questions tagged &#39;having&#39;" target="_blank" rel="external">having</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/where-clause" title="show questions tagged &#39;where-clause&#39;" target="_blank" rel="external">where-clause</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/count" title="show questions tagged &#39;count&#39;" target="_blank" rel="external">count</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/group-by" title="show questions tagged &#39;group-by&#39;" target="_blank" rel="external">group-by</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/join" title="show questions tagged &#39;join&#39;" target="_blank" rel="external">join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/left-join" title="show questions tagged &#39;left-join&#39;" target="_blank" rel="external">left-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/inner-join" title="show questions tagged &#39;inner-join&#39;" target="_blank" rel="external">inner-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/outer-join" title="show questions tagged &#39;outer-join&#39;" target="_blank" rel="external">outer-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/self-join" title="show questions tagged &#39;self-join&#39;" target="_blank" rel="external">self-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/cross-join" title="show questions tagged &#39;cross-join&#39;" target="_blank" rel="external">cross-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/right-join" title="show questions tagged &#39;right-join&#39;" target="_blank" rel="external">right-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/full-outer-join" title="show questions tagged &#39;full-outer-join&#39;" target="_blank" rel="external">full-outer-join</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/natural-join" title="show questions tagged &#39;natural-join&#39;" target="_blank" rel="external">natural-join</a></li>
+</ul>
+<h3 id="Implementation_specific_tags">Implementation specific tags</h3><p>You can specify your question by adding the implementation you used as a tag.</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/tagged/mysql" title="show questions tagged &#39;mysql&#39;" target="_blank" rel="external">mysql</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/mssql" title="show questions tagged &#39;mssql&#39;" target="_blank" rel="external">mssql</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/oracle" title="show questions tagged &#39;oracle&#39;" target="_blank" rel="external">oracle</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/postgresql" title="show questions tagged &#39;postgresql&#39;" target="_blank" rel="external">postgresql</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/sqlite" title="show questions tagged &#39;sqlite&#39;" target="_blank" rel="external">sqlite</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/db2" title="show questions tagged &#39;db2&#39;" target="_blank" rel="external">db2</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+    <footer class="article-footer">
+        <a data-url="http://ricston.co.uk/wiki/sql.html" data-id="ciafjfdm300040s6dr1w3ezu4" class="article-share-link">Share</a>
+        
+        
+    </footer>
+    
+    
+    
+
+    <div class="container">
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h3 class="noSubtitle">Get in touch</h3>
+        </div>
+        <!--<div class="col-sm-12">-->
+        <!--<div id="mapWrapper" class="mb30"></div>-->
+        <!--</div>-->
+
+        <div class="col-sm-8">
+            <form method="post" action="" id="contactfrm" role="form">
+
+                <div class="col-sm-6">
+                    <img src="/images/CONTACT-MULE.png" width="140px"/>
+                    <h4>Address:</h4>
+                    <address>
+                        <b>Ricston UK Ltd</b><br/>
+                        Unit 5, 520 Chiswick High Rd.<br/>
+                        London, W4 5RG <br/>
+                    </address>
+                    <h4>Phone:</h4>
+                    <address>
+                        +44 (0)20 719 351 07 <br/>
+                    </address>
+                    <h4>Mobile:</h4>
+                    <address>
+                        +44 (0)78 732 938 96<br/>
+                    </address>
+                    <hr/>
+                    <address>
+                        <b>Ricston Malta Ltd</b><br/>
+                        Northfields, Suite 4, Independence Avenue, <br/>
+                        Mosta, MST9026, Malta <br/>
+                    </address>
+                    <h4>Phone:</h4>
+                    <address>
+                        +356 2133 4457 <br/>
+                    </address>
+                    <h4>Fax:</h4>
+                    <address>
+                        +356 2133 4156<br/>
+                    </address>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter name"
+                               title="Please enter your name (at least 2 characters)"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email"
+                               title="Please enter a valid email address"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input name="phone" class="form-control required digits" type="tel" id="phone" size="30"
+                               value="" placeholder="Enter phone"
+                               title="Please enter a valid phone number (at least 10 characters)">
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                            <textarea name="comment" class="form-control" id="comments" cols="3" rows="5"
+                                      placeholder="Enter your message…"
+                                      title="Please enter your message (at least 10 characters)"></textarea>
+                    </div>
+                    <div class="col-md-8 col-md-offset-6">
+                        <div class="result"></div>
+                        <button name="submit" type="submit" class="btn btn-md" id="submit"> Submit</button>
+                    </div>
+                    <!--<fieldset class="clearfix securityCheck">-->
+                    <!--<legend>Security</legend>-->
+                    <!--<div class="form-group">-->
+                    <!--<input class="required form-control" id="verify" name="verify" type="text">-->
+                    <!--</div>-->
+                    <!--</fieldset>-->
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+
+
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular-Dart/">Angular Dart</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/">ELK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic-Search/">Elastic Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fluentd/">Fluentd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acid/">acid</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ci/">ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-processing/">data_processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devOps/">devOps</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grails/">grails</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/groovy/">groovy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mean/">mean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongo/">mongo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgress/">postgress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/richard-donovan/">richard.donovan</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/upgrade/">upgrade</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Angular-Dart/" style="font-size: 10px;">Angular Dart</a><a href="/tags/Docker/" style="font-size: 10px;">Docker</a><a href="/tags/ELK/" style="font-size: 10px;">ELK</a><a href="/tags/Elastic-Search/" style="font-size: 10px;">Elastic Search</a><a href="/tags/Fluentd/" style="font-size: 10px;">Fluentd</a><a href="/tags/Logstash/" style="font-size: 10px;">Logstash</a><a href="/tags/acid/" style="font-size: 10px;">acid</a><a href="/tags/angular/" style="font-size: 10px;">angular</a><a href="/tags/apache/" style="font-size: 10px;">apache</a><a href="/tags/ci/" style="font-size: 10px;">ci</a><a href="/tags/data-processing/" style="font-size: 10px;">data_processing</a><a href="/tags/devOps/" style="font-size: 10px;">devOps</a><a href="/tags/docker/" style="font-size: 10px;">docker</a><a href="/tags/express/" style="font-size: 10px;">express</a><a href="/tags/grails/" style="font-size: 10px;">grails</a><a href="/tags/groovy/" style="font-size: 10px;">groovy</a><a href="/tags/javascript/" style="font-size: 10px;">javascript</a><a href="/tags/json/" style="font-size: 10px;">json</a><a href="/tags/mean/" style="font-size: 10px;">mean</a><a href="/tags/mobile/" style="font-size: 10px;">mobile</a><a href="/tags/mongo/" style="font-size: 10px;">mongo</a><a href="/tags/node/" style="font-size: 15px;">node</a><a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a><a href="/tags/postgress/" style="font-size: 10px;">postgress</a><a href="/tags/richard-donovan/" style="font-size: 20px;">richard.donovan</a><a href="/tags/spark/" style="font-size: 10px;">spark</a><a href="/tags/upgrade/" style="font-size: 10px;">upgrade</a><a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/2015/06/">June 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/2015/05/">May 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/2015/04/">April 2015</a><span class="archive-list-count">12</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="">
+    <div class="">
+      <ul>
+        
+          <li>
+            <a href="/blog/Tools/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Rancher-and-Docker-Tutorial/">Rancher and Docker Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Build-Grails-Applications-with-TeamCity/">Build Grails Applications with TeamCity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Upgrading-from-Grails-2-x-to-Grails-3/">Upgrading from Grails 2.x to Grails 3</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+    </div>
+    <!-- footer from layout -->
+    <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            <div class="row">
+                <div class="col-md-4">
+                    &copy; 2015 Ricston Ltd<br>
+                    Powered by <a href="https://nodejs.org/">Nodejs</a> and <a href="http://hexo.io/"
+                                                                               target="_blank">Hexo</a>
+                </div>
+                <div class="col-md-6 right text-right">
+                    <h2>
+                        <a href="https://www.linkedin.com/company/ricston-ltd" target="_blank"><i class="fa fa-linkedin"></i></a> &nbsp
+                    <a href="https://www.facebook.com/ricston" target="_blank"><i class="fa fa-facebook"></i></a> &nbsp
+                    <a href="https://twitter.com/ricston"><i class="fa fa-twitter"></i></a> &nbsp
+                    <a href="https://www.facebook.com/ricston"><i class="fa fa-google-plus"></i></a> &nbsp
+                    <a href="#"><i class="fa fa-rss"></i></a></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

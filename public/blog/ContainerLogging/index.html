@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="public">
+    <meta http-equiv="Age" content="86400">
+    <meta http-equiv="Content-Encoding" content=”gzip”/>
+    
+
+
+    <title>
+        
+        Centralized Docker 1.6 Logging with ELK Stack (and Fluentd)  |
+        
+        Ricston UK Ltd - The Integration nijas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Docker 1.6 Logging with ELK StackWith great power comes great potential to f*ck everything up
+
+Docker brings tremendous potential for speed and agility of development when coupled with concepts of Con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centralized Docker 1.6 Logging with ELK Stack (and Fluentd) ">
+<meta property="og:url" content="http://ricston.co.uk/blog/ContainerLogging/index.html">
+<meta property="og:site_name" content="Ricston UK Ltd - The Integration nijas">
+<meta property="og:description" content="Docker 1.6 Logging with ELK StackWith great power comes great potential to f*ck everything up
+
+Docker brings tremendous potential for speed and agility of development when coupled with concepts of Con">
+<meta property="og:image" content="http://a3ab771892fd198a96736e50.javacodegeeks.netdna-cdn.com/wp-content/uploads/2015/05/kibana.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centralized Docker 1.6 Logging with ELK Stack (and Fluentd) ">
+<meta name="twitter:description" content="Docker 1.6 Logging with ELK StackWith great power comes great potential to f*ck everything up
+
+Docker brings tremendous potential for speed and agility of development when coupled with concepts of Con">
+    
+    <link rel="alternative" href="/atom.xml" title="Ricston UK Ltd - The Integration nijas" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.png">
+    
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+
+
+    <!-- Bootstrap  -->
+    <link type="text/css" rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.4/custom/bootstrap.min.css">
+    <!-- web font  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800" rel="stylesheet" type="text/css">
+    <!-- plugin css  -->
+    <link rel="stylesheet" type="text/css" href="/css/animate.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/css/magnific-popup.css"/>-->
+    <!--<link type="text/css" rel="stylesheet" href="/css/isotype_style.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/flexslider.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/pageslide/jquery.pageslide.css"/>
+    <!-- Owl carousel-->
+    <link rel="stylesheet" href="/owl.carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/owl.carousel/owl.theme.css">
+    <link rel="stylesheet" href="/owl.carousel/owl.transitions.css">
+    <link rel="stylesheet" href="/bower_components/fontawesome/css/font-awesome.css"/>
+    <!-- Custom css -->
+    <link type="text/css" rel="stylesheet" href="/css/layout.css">
+    <link type="text/css" id="colors" rel="stylesheet" href="/css/colors.css">
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<!-- globalWrapper -->
+<div id="globalWrapper" class="localscroll">
+<!-- header -->
+<header id="mainHeader" class="navbar-fixed-top" role="banner">
+    <div class="container">
+        <nav class="navbar navbar-default scrollMenu" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/index.html"><img width="180px" src="/images/ricstonLogoNew2.gif" alt="Ricston Logo"/></a></div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse" id="scrollTarget">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="active"><a href="/"><i class="fa fa-home"></i>Home</a></li>
+                    <li id="services"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false">
+                            <i class="fa fa-thumbs-up"></i>Services</a>
+                        <!--<span class="caret"></span>-->
+                        <!--</a>-->
+                        <ul class="dropdown-menu right" role="menu">
+                            <li class="customMenu"><a href="/#services">Our Services</a></li>
+                            <li class="customMenu"><a href="/tech/#Mule">Mule Integration</a></li>
+                            <li class="customMenu"><a href="/tech/#Open Source">Open Source</a></li>
+                            <li class="customMenu"><a href="/tech/java.html">Java</a></li>
+                            <li class="customMenu"><a href="/tech/#Migration">Migration</a></li>
+                            <li class="customMenu"><a href="/tech/#DevOps">Dev Ops</a></li>
+                            <li class="customMenu"><a href="/tech/#Testing">Testing</a></li>
+                            <li class="customMenu"><a href="/tech/#Db Design">DB Design</a></li>
+                            <li class="customMenu"><a href="/tech/#Big Data">Big Data</a></li>
+                            <li class="customMenu"><a href="/tech/#Micro Services">Micro Services</a></li>
+                            <li class="customMenu"><a href="/tech/#Apis">Apis</a></li>
+                        </ul></li>
+                    <li><a href="/#about"><i class="fa fa-question"></i>About Us</a></li>
+                    <li id="industries"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i
+                                    class="fa fa-paperclip"></i>Industries</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="customMenu"><a href="/industries/">Industries</a></li>
+                            <li class="customMenu"><a href="/industries/#Media_&_Telecom">Telecoms & Media</a></li>
+                            <li class="customMenu"><a href="/industries/#Retail">Retail</a></li>
+                            <li class="customMenu"><a href="/industries/#Finance">Finance</a></li>
+                            <li class="customMenu"><a href="/industries/#Government">Government</a></li>
+                        </ul>
+                    </li>
+                    <li id="works"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i class="fa fa-align-justify"></i>Works</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="customMenu"><a href="/#Works">Projects</a></li>
+                            <li class="customMenu"><a href="/presentations">Presentations</a></li>
+                            <li class="customMenu"><a href="/blog">Tech Blog</a></li>
+                            <li class="customMenu"><a href="http://ricston.com/blog">Mule Blog</a></li>
+                            <li class="customMenu"><a href="/wiki/index.html">Wiki</a></li>
+                        </ul>
+                    </li>
+                    <li id="people"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-users"></i>Our Team</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="customMenu"><a href="/#team">Our Team</a></li>
+                            <li class="customMenu"><a href="/careers">Careers</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#contactSlice"><i class="fa fa-mail-reply"></i>Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- header variables -->
+ <!--404.html-->
+ <!---->
+ <!--404.html-->
+ <!--404.html-->
+ <!--/home/richard/workspace/workspace_ricston/ricston_site/source/404.html-->
+ <!---->
+
+
+<script type="application/javascript">
+    $(document).ready(function(){
+//        alert ("got updated page   " );
+        if ( document.location.pathname.startsWith("/tech")){
+            $('.active').attr("class", "");
+            $('li#works').attr("class","active");
+        } else  if ( document.location.pathname.startsWith("/services") ){
+            $('.active').attr("class", "");
+            $('li#services').attr("class","active");
+        }  else  if ( document.location.pathname.startsWith("/caseStudies")) {
+            $('.active').attr("class", "");
+            $('li#services').attr("class", "active");
+        }  else  if ( document.location.pathname.startsWith("/careers")) {
+            $('.active').attr("class", "");
+            $('li#people').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/industries")) {
+            $('.active').attr("class", "");
+            $('li#industries').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/blog")) {
+            $('.active').attr("class", "");
+            $('li#works').attr("class", "active");
+        }  else  if ( document.location.pathname.startsWith("/people")) {
+            $('.active').attr("class", "");
+            $('li#people').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/wiki")) {
+            $('.active').attr("class", "");
+            $('li#works').attr("class", "active");
+        } else  if ( document.location.pathname.startsWith("/presentations")) {
+            $('.active').attr("class", "");
+            $('li#works').attr("class", "active");
+        }
+    });
+</script>
+
+<!-- header -->
+  <div class="container" id="">
+    <!--<div id="wrap">-->
+      <div class="">
+        <section id="main"><article id="post-ContainerLogging" class="article article-type-post col-md-20" itemscope
+         itemprop="blogPost">
+    <div class="article-meta">
+        <a href="/blog/ContainerLogging/" class="article-date">
+  <time datetime="2015-05-26T13:00:13.000Z" itemprop="datePublished">2015-05-26</time>
+</a>
+        
+    </div>
+    <div class="article-inner">
+        
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Centralized Docker 1.6 Logging with ELK Stack (and Fluentd) 
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            <h1 id="Docker_1-6_Logging_with_ELK_Stack">Docker 1.6 Logging with ELK Stack</h1><blockquote><br>With great power comes great potential to f*ck everything up<br></blockquote>
+
+<p>Docker brings tremendous potential for speed and agility of development when coupled with concepts of Continuous Integration (CI), elastic scaling and micro-services.</p>
+<p>However large scale and frequent agile deployment can lead to a monitoring nightmare if/when things start going wrong.</p>
+<p>Enter centralized logging with the  <strong>ELK stack</strong> (<strong><a href="https://www.elastic.co/products/elasticsearch" target="_blank" rel="external">ElasticSearch</a></strong>, <strong><a href="https://www.elastic.co/products/logstash" target="_blank" rel="external">LogStash</a></strong> and <strong><a href="https://www.elastic.co/products/kibana" target="_blank" rel="external">Kibana</a></strong>).</p>
+<h2 id="Docker_1-6_-_Docker_Driver">Docker 1.6 - Docker Driver</h2><p>While centralized logging can be implemented prior to 1.6, this blog focuses on the Docker 1.6  introduction of the logging driver which provides a significant step forward in creating a comprehensive approach to logging in Docker environments.</p>
+<p>Docker now provides:</p>
+<ul>
+<li>default <strong>json-file</strong> driver that allows us to see logs with <code>docker logs</code> command,</li>
+<li><strong>syslog</strong>  If set, it will route container output (stdout and stderr) to <strong>syslog</strong>.</li>
+<li>for completeness it is also possible to completely suppress the writing of container output to file to save hard disk use but not recommended for a production environment.</li>
+</ul>
+<h2 id="Docker_Centralized_Logging_with_Syslog">Docker Centralized Logging with Syslog</h2><p>The solution consists of:</p>
+<ul>
+<li><strong>ELK</strong> stack</li>
+<li>Docker <strong>syslog log driver</strong></li>
+<li>the configuration to  log entries to a central location with <strong>rsyslog</strong>.</li>
+</ul>
+<h2 id="Creating_and_Configuring_Docker">Creating and Configuring Docker</h2><p>We will use a pretty standard vagrant setup <a href="https://www.vagrantup.com" target="_blank" rel="external">Vagrant</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/vfarcic/docker-logging-elk.git</span><br><span class="line"><span class="keyword">cd</span> docker-logging-elk</span><br><span class="line">vagrant <span class="keyword">up</span> monitoring</span><br><span class="line">vagrant ssh monitoring</span><br></pre></td></tr></table></figure>
+<h1 id="The_Elk_Stack">The Elk Stack</h1><p>The Elk stack consists of</p>
+<ul>
+<li><strong>E</strong>lasticSearch an json data store that provides schema-less full-text search and supports high performance even with high level of writes.</li>
+<li><strong>L</strong>ogstash: a shipper that send data from files to ElasticSearch</li>
+<li><strong>K</strong>ibana a powerful Elastic search front end that can be used for vizualiation and data introspection.</li>
+</ul>
+<h2 id="ElasticSearch">ElasticSearch</h2><p>To store our data in  <strong><a href="https://www.elastic.co/products/elasticsearch" target="_blank" rel="external">ElasticSearch</a></strong> database, we uses ElasticSeach’s navtive JSON format for storing data.  More importantly, ElasticSearch is optimized for real-time search and analytics allowing us to navigate through our logs quickly.</p>
+<p>The official <strong>ElasticSearch</strong> container with port 9200 exposed. We’ll use volume to persist DB data to the /data/elasticsearch directory.</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sudo</span> mkdir -p /<span class="typedef"><span class="keyword">data</span>/elasticsearch</span></span><br><span class="line"><span class="title">sudo</span> docker run -d <span class="comment">--name elasticsearch</span></span><br><span class="line">    -p <span class="number">9200</span>:<span class="number">9200</span></span><br><span class="line">    -v /<span class="typedef"><span class="keyword">data</span>/elasticsearch:/usr/share/elasticsearch/<span class="keyword">data</span></span></span><br><span class="line">    elasticsearch</span><br></pre></td></tr></table></figure>
+<h2 id="LogStash">LogStash</h2><p><a href="https://www.elastic.co/products/logstash" target="_blank" rel="external">LogStash</a> is a flexible data shipper that has a number of plugins to process, filter and santize log data.</p>
+<p> In this case, input will be <strong>syslog</strong>. We’ll filter and mutate Docker entries so that we can distinguish them from the rest of syslog. Finally, we’ll output results to <strong>ElasticSearch</strong> that we already set up.</p>
+<p>Container will use official LogStash image. It will expose port 25826, share host volume /data/logstash/config that will provided required configuration and, finally, will link to the ElasticSearch.</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name logstash</span><br><span class="line">    -<span class="ruby">-expose <span class="number">25826</span></span><br><span class="line"></span>    -<span class="ruby">p <span class="number">25826</span><span class="symbol">:</span><span class="number">25826</span></span><br><span class="line"></span>    -<span class="ruby">p <span class="number">25826</span><span class="symbol">:</span><span class="number">25826</span>/udp</span><br><span class="line"></span>    -<span class="ruby">v <span class="variable">$PWD</span>/<span class="symbol">conf:</span>/conf</span><br><span class="line"></span>    -<span class="ruby">-link <span class="symbol">elasticsearch:</span>db</span><br><span class="line"></span>    logstash logstash -f /conf/syslog.conf</span><br></pre></td></tr></table></figure>
+<p>   This container was run with -f flag that allows us to specify a configuration we’d like to use. The one we’re using (syslog.conf) looks like following.</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">   input &#123;</span><br><span class="line">  syslog &#123;</span><br><span class="line">    <span class="keyword">type</span> =&gt; syslog</span><br><span class="line">    port =&gt; <span class="number">25826</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">filter &#123;</span><br><span class="line">  <span class="keyword">if</span> <span class="string">"docker/"</span> <span class="keyword">in</span> [program] &#123;</span><br><span class="line">    mutate &#123;</span><br><span class="line">      add_field =&gt; &#123;</span><br><span class="line">        <span class="string">"container_id"</span> =&gt; <span class="string">"%&#123;program&#125;"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mutate &#123;</span><br><span class="line">      gsub =&gt; [</span><br><span class="line">        <span class="string">"container_id"</span>, <span class="string">"docker/"</span>, <span class="string">""</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">    mutate &#123;</span><br><span class="line">      update =&gt; [</span><br><span class="line">        <span class="string">"program"</span>, <span class="string">"docker"</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">  stdout &#123;</span><br><span class="line">    codec =&gt; rubydebug</span><br><span class="line">  &#125;</span><br><span class="line">  elasticsearch &#123;</span><br><span class="line">    host =&gt; db</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The logstash configuration consists of rules for managing input, filtering and output formats:</p>
+<ul>
+<li><p><strong>input</strong> section we’re telling LogStash to listen for <strong>syslog</strong> events on port <strong>25826</strong>.</p>
+</li>
+<li><p>the filter section looks for <strong>docker</strong> as a program (Docker logging driver is registering itself as a program in format <strong>docker/[CONTAINER_ID]</strong>). When it finds such program, it mutates its value into a new field <strong>container_id</strong> and updates <strong>program</strong> to be simply <strong>docker</strong>.</p>
+</li>
+<li><p>the output sends the results into <strong>stdout</strong> (using rubydebug codec) and, more importantly, <strong>ElasticSearch</strong>.</p>
+</li>
+</ul>
+<p>With ElasticSearch up and running and LogStash listening on syslog events, we are ready to set up <strong>rsyslog</strong>.</p>
+<h2 id="rsyslog">rsyslog</h2><p><strong>rsyslog</strong> is a very fast system for processing logs. We’ll use it to deliver our <strong>syslog</strong> entries to <strong>LogStash</strong>. It is already pre-installed in Ubuntu so all we have to do is configure it to work with LogStash.<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp <span class="keyword">conf</span>/10-logstash.<span class="keyword">conf</span> /etc/rsyslog.<span class="keyword">d</span>/.</span><br><span class="line">sudo service rsyslog restart</span><br></pre></td></tr></table></figure></p>
+<p>We copied a new <strong>rsyslog</strong> configuration and restarted the service. Configuration file is very simple.</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span>.<span class="keyword">*</span> @<span class="comment">@10.100.199.202:25826</span></span><br></pre></td></tr></table></figure>
+<p>It tells <strong>rsyslog</strong> to send all <strong>syslog</strong> entries (<code>*.*</code>) to a remote (<code>@@</code>) location (<code>10.100.199.202:25826</code>). In this case, 10.100.199.202 is the IP of Vagrant VM we created.</p>
+<p> If you’re using your own server, please change it to the correct IP. Also, the IP is not a remote location since we are using only one server in this example. In “real” world scenarios you would set rsyslog on each server to point to the central location where ELK is deployed.</p>
+<p>Now that we are capturing all <strong>syslog</strong> events and sending them to <strong>ElasticSearch</strong>, it is time to visualize our data.</p>
+<h2 id="Kibana">Kibana</h2><p><a href="https://www.elastic.co/products/kibana" target="_blank" rel="external">Kibana</a> is an analytics and visualization platform designed to work with real-time data. It integrates seamlessly with ElasticSearch.</p>
+<p>Unlike ElasticSearch and LogStash, there is no official Kibana image so we created one for you. It can be found in Docker Hub under <a href="https://registry.hub.docker.com/u/vfarcic/kibana/" target="_blank" rel="external">vfarcic/kibana</a>.</p>
+<p>We’ll expose port 5601 and link it with the <strong>ElasticSearch</strong> container.</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name kibana</span><br><span class="line">    -<span class="ruby">p <span class="number">5601</span><span class="symbol">:</span><span class="number">5601</span></span><br><span class="line"></span>    -<span class="ruby">-link <span class="symbol">elasticsearch:</span>db</span><br><span class="line"></span>    vfarcic/kibana</span><br></pre></td></tr></table></figure>
+<p>Kibana allows us to easily setup dashboards to serve the needs specific to the project or organization. If you are a first time user, you might be better of with an example Dashboard created to showcase the usage of system and Docker logs coming from <strong>syslog</strong>.</p>
+<p>Following command with import sample Kibana settings. It will use a container with <a href="https://www.npmjs.com/package/elasticdump" target="_blank" rel="external">ElasticDump</a> tool that provides import and export tools for ElasticSearch. The container is custom-made and can be found in Docker Hub under <a href="https://registry.hub.docker.com/u/vfarcic/elastic-dump/" target="_blank" rel="external">vfarcic/elastic-dump</a>.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="keyword">run</span> --<span class="keyword">rm</span></span><br><span class="line">    -v <span class="label">$PWD</span>/<span class="keyword">conf</span>:/data</span><br><span class="line">    vfarcic/elastic-dump --<span class="keyword">input</span>=/data/es-kibana.json</span><br><span class="line">    --output=http:<span class="comment">//10.100.199.202:9200/.kibana --type=data</span></span><br></pre></td></tr></table></figure>
+<p>Once this container is run, Kibana configuration from the file <strong>es-kibana.json</strong> was imported into the ElasticSearch database running on <strong>10.100.199.202:9200</strong>.</p>
+<p>Now we can take a look at Kibana dashboard that we just setup. Open <a href="http://localhost:5601" target="_blank" rel="external">http://localhost:5601</a> in your favourite browser.</p>
+<p>The initial screen shows all unfiltered logs. You can add columns from the left hand side of the screen, create new searches, etc. Among Kibana settings that we imported there is a saved search called <strong>error</strong>. It filters logs so that only those that contain word <strong>error</strong> are displayed. We could have done it in many other ways but this one seemed easiest and most straightforward. Open it by clicking the <strong>Load Saved Search</strong> icon in the top-right corner of the screen. At the moment it shows very few or no errors so let us generate a few fake ones.</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">logger -s -<span class="tag">p</span> <span class="number">1</span> <span class="string">"This is fake error..."</span></span><br><span class="line">logger -s -<span class="tag">p</span> <span class="number">1</span> <span class="string">"This is another fake error..."</span></span><br><span class="line">logger -s -<span class="tag">p</span> <span class="number">1</span> <span class="string">"This is one more fake error..."</span></span><br></pre></td></tr></table></figure>
+<p>Refresh the Kibana screen and you should see those three error messages.</p>
+<p>Besides looking at logs in a list format, we can create our own dashboards. For example, click on the <strong>Dashboard</strong> top menu, then <strong>Load Saved Dashboard</strong> and select <strong>error</strong> (another one that we imported previously).</p>
+<p><a href="http://a3ab771892fd198a96736e50.javacodegeeks.netdna-cdn.com/wp-content/uploads/2015/05/kibana.png" target="_blank" rel="external"><img src="http://a3ab771892fd198a96736e50.javacodegeeks.netdna-cdn.com/wp-content/uploads/2015/05/kibana.png" alt="kibana"></a></p>
+<h2 id="Running_Container_with_syslog">Running Container with syslog</h2><p>Up until this moment we saw only system logs so let us run a new Docker container and set it up to use <strong>syslog log driver</strong>.<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --name bdd</span><br><span class="line">    -<span class="ruby">p <span class="number">9000</span><span class="symbol">:</span><span class="number">9000</span></span><br><span class="line"></span>    -<span class="ruby">-log-driver syslog</span><br><span class="line"></span>    vfarcic/bdd</span><br></pre></td></tr></table></figure></p>
+<p>If we go back to Kibana, click on <strong>Discover</strong> and open <strong>Saved Search</strong> called <strong>docker</strong>, there should be, at least, three entries.</p>
+<p>That’s it. Now we can scale this to as many containers and servers as we need. All there is to do is set up <strong>rsyslog</strong> on each server and run containers with <code>--log-driver syslog</code>. Keep in mind that standard <code>docker logs</code> command will not work any more. That’s the expected behaviour. Logs should be in one place, easy to find, filter, visualize, etc.</p>
+<p>We’re done with this VM so let us exit and stop it.</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br><span class="line">vagrant halt</span><br></pre></td></tr></table></figure>
+<h2 id="Alternative_Shippers_-_Golang_Fluentd">Alternative Shippers - Golang Fluentd</h2><p>The Logstash shipper while flexible  has faced some criticism for be heavy. As a result altenrate shippers have emerged to suite various environments (including javaless and Windows)</p>
+<p>In this section we will look at using Fluentd ..</p>
+
+            
+        </div>
+    </div>
+    <footer class="article-footer">
+        <a data-url="http://ricston.co.uk/blog/ContainerLogging/" data-id="ciafjfdtu006o0s6dpjvt0esm" class="article-share-link">Share</a>
+        
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic-Search/">Elastic Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fluentd/">Fluentd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logstash/">Logstash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/richard-donovan/">richard.donovan</a></li></ul>
+
+    </footer>
+    
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Do-any-proven-enterprise-grade-transactional-ACID-compliant-JSON-database-engines-exist/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Do any proven, enterprise-grade, transactional, ACID compliant JSON database engines exist?
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Mean/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mean - Mongo Express Angular Node</div>
+    </a>
+  
+</nav>
+
+    
+
+    <div class="container">
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h3 class="noSubtitle">Get in touch</h3>
+        </div>
+        <!--<div class="col-sm-12">-->
+        <!--<div id="mapWrapper" class="mb30"></div>-->
+        <!--</div>-->
+
+        <div class="col-sm-8">
+            <form method="post" action="" id="contactfrm" role="form">
+
+                <div class="col-sm-6">
+                    <img src="/images/CONTACT-MULE.png" width="140px"/>
+                    <h4>Address:</h4>
+                    <address>
+                        <b>Ricston UK Ltd</b><br/>
+                        Unit 5, 520 Chiswick High Rd.<br/>
+                        London, W4 5RG <br/>
+                    </address>
+                    <h4>Phone:</h4>
+                    <address>
+                        +44 (0)20 719 351 07 <br/>
+                    </address>
+                    <h4>Mobile:</h4>
+                    <address>
+                        +44 (0)78 732 938 96<br/>
+                    </address>
+                    <hr/>
+                    <address>
+                        <b>Ricston Malta Ltd</b><br/>
+                        Northfields, Suite 4, Independence Avenue, <br/>
+                        Mosta, MST9026, Malta <br/>
+                    </address>
+                    <h4>Phone:</h4>
+                    <address>
+                        +356 2133 4457 <br/>
+                    </address>
+                    <h4>Fax:</h4>
+                    <address>
+                        +356 2133 4156<br/>
+                    </address>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter name"
+                               title="Please enter your name (at least 2 characters)"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email"
+                               title="Please enter a valid email address"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input name="phone" class="form-control required digits" type="tel" id="phone" size="30"
+                               value="" placeholder="Enter phone"
+                               title="Please enter a valid phone number (at least 10 characters)">
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                            <textarea name="comment" class="form-control" id="comments" cols="3" rows="5"
+                                      placeholder="Enter your message…"
+                                      title="Please enter your message (at least 10 characters)"></textarea>
+                    </div>
+                    <div class="col-md-8 col-md-offset-6">
+                        <div class="result"></div>
+                        <button name="submit" type="submit" class="btn btn-md" id="submit"> Submit</button>
+                    </div>
+                    <!--<fieldset class="clearfix securityCheck">-->
+                    <!--<legend>Security</legend>-->
+                    <!--<div class="form-group">-->
+                    <!--<input class="required form-control" id="verify" name="verify" type="text">-->
+                    <!--</div>-->
+                    <!--</fieldset>-->
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+
+
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular-Dart/">Angular Dart</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/">ELK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic-Search/">Elastic Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fluentd/">Fluentd</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/">Logstash</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acid/">acid</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ci/">ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-processing/">data_processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devOps/">devOps</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grails/">grails</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/groovy/">groovy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mean/">mean</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongo/">mongo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgress/">postgress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/richard-donovan/">richard.donovan</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">spark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/upgrade/">upgrade</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Angular-Dart/" style="font-size: 10px;">Angular Dart</a><a href="/tags/Docker/" style="font-size: 10px;">Docker</a><a href="/tags/ELK/" style="font-size: 10px;">ELK</a><a href="/tags/Elastic-Search/" style="font-size: 10px;">Elastic Search</a><a href="/tags/Fluentd/" style="font-size: 10px;">Fluentd</a><a href="/tags/Logstash/" style="font-size: 10px;">Logstash</a><a href="/tags/acid/" style="font-size: 10px;">acid</a><a href="/tags/angular/" style="font-size: 10px;">angular</a><a href="/tags/apache/" style="font-size: 10px;">apache</a><a href="/tags/ci/" style="font-size: 10px;">ci</a><a href="/tags/data-processing/" style="font-size: 10px;">data_processing</a><a href="/tags/devOps/" style="font-size: 10px;">devOps</a><a href="/tags/docker/" style="font-size: 10px;">docker</a><a href="/tags/express/" style="font-size: 10px;">express</a><a href="/tags/grails/" style="font-size: 10px;">grails</a><a href="/tags/groovy/" style="font-size: 10px;">groovy</a><a href="/tags/javascript/" style="font-size: 10px;">javascript</a><a href="/tags/json/" style="font-size: 10px;">json</a><a href="/tags/mean/" style="font-size: 10px;">mean</a><a href="/tags/mobile/" style="font-size: 10px;">mobile</a><a href="/tags/mongo/" style="font-size: 10px;">mongo</a><a href="/tags/node/" style="font-size: 15px;">node</a><a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a><a href="/tags/postgress/" style="font-size: 10px;">postgress</a><a href="/tags/richard-donovan/" style="font-size: 20px;">richard.donovan</a><a href="/tags/spark/" style="font-size: 10px;">spark</a><a href="/tags/upgrade/" style="font-size: 10px;">upgrade</a><a href="/tags/windows/" style="font-size: 10px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/2015/06/">June 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/2015/05/">May 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/2015/04/">April 2015</a><span class="archive-list-count">12</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="">
+    <div class="">
+      <ul>
+        
+          <li>
+            <a href="/blog/Tools/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Rancher-and-Docker-Tutorial/">Rancher and Docker Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Build-Grails-Applications-with-TeamCity/">Build Grails Applications with TeamCity</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Upgrading-from-Grails-2-x-to-Grails-3/">Upgrading from Grails 2.x to Grails 3</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+    </div>
+    <!-- footer from layout -->
+    <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            <div class="row">
+                <div class="col-md-4">
+                    &copy; 2015 Ricston Ltd<br>
+                    Powered by <a href="https://nodejs.org/">Nodejs</a> and <a href="http://hexo.io/"
+                                                                               target="_blank">Hexo</a>
+                </div>
+                <div class="col-md-6 right text-right">
+                    <h2>
+                        <a href="https://www.linkedin.com/company/ricston-ltd" target="_blank"><i class="fa fa-linkedin"></i></a> &nbsp
+                    <a href="https://www.facebook.com/ricston" target="_blank"><i class="fa fa-facebook"></i></a> &nbsp
+                    <a href="https://twitter.com/ricston"><i class="fa fa-twitter"></i></a> &nbsp
+                    <a href="https://www.facebook.com/ricston"><i class="fa fa-google-plus"></i></a> &nbsp
+                    <a href="#"><i class="fa fa-rss"></i></a></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
