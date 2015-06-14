@@ -2,7 +2,7 @@ title: Datawrapper - Open Source Visualization
 date: 2015-06-14 19:56:04
 tags:
 - opensource
-- visualizatoin
+- visualization
 - data
 ---
 
@@ -30,3 +30,5 @@ DataWrapper describe 4 simple steps to start generating data.
 **Step 5** Is to customize the visualization and embed it into your publication
 
 <img src="http://opensource.com/sites/default/files/resize/images/life-uploads/dataviz_datawrapper-520x358.png" />
+
+Even thought DataWrapper provides map visualization for a greater range of maps consider also [leaflet](http://leafletjs.com/) An Open-Source JavaScript Library for Mobile-Friendly Interactive Maps
